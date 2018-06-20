@@ -1,0 +1,97 @@
+<!DOCTYPE html>
+<html lang="en" xmlns:th="http://www.thymeleaf.org">
+<head>
+    <meta charset="UTF-8">
+    <title>index</title>
+
+    <link rel="stylesheet" th:href="@{/css/bootstrap.min.css}" href="../static/css/bootstrap.min.css">
+
+    <script th:src="@{/js/jquery-1.9.1.min.js}" src="../static/js/jquery-1.9.1.min.js"></script>
+    <script th:src="@{/js/bootstrap.min.js}" src="../static/js/bootstrap.min.js"></script>
+</head>
+<body>
+<nav class="navbar navbar-default">
+    <div class="container">
+        <div class="navbar-header">
+            <a href="#" class="navbar-brand">Thymeleaf</a>
+        </div>
+        <div class="collapse navbar-collapse">
+            <ul class="nav navbar-nav navbar-right">
+                <li>
+                    <div th:switch="${status}">
+                        <form th:case="0" class="navbar-form" role="search" id="form_login" th:action="@{/index/login}" th:method="post">
+                            <div class="form-group">
+                                <label class="control-label">用户名</label>
+                                <input type="text" class="form-control" placeholder="" name="username">
+                                <label class="control-label">密码</label>
+                                <input type="password" class="form-control" placeholder="" name="password">
+                                <input type="checkbox" placeholder="" name="remember"> 记住密码
+                            </div>
+                            <button type="submit" class="btn btn-default">登录</button>
+                        </form>
+                        <p th:case="1" class="navbar-text" th:text="${name} + '，欢迎您！'">欢迎您！</p>
+                    </div>
+                </li>
+                <li>
+                    <button class="btn btn-default navbar-btn" id="btn_register" data-toggle="modal" data-target="#modal_register">注册</button>
+                </li>
+            </ul>
+
+        </div>
+    </div>
+</nav>
+<div class="modal fade" tabindex="-1" role="dialog" id="modal_register">
+    <div class="modal-dialog" role="document">
+        <div class="modal-content">
+            <div class="modal-header">
+                <button type="button" class="close" data-dismiss="modal" aria-label="Close"><span aria-hidden="true">&times;</span></button>
+                <h4 class="modal-title">注册</h4>
+            </div>
+            <div class="modal-body">
+                <form class="form-horizontal" id="form_register">
+                    <div class="form-group">
+                        <label class="col-sm-2 control-label">用户名</label>
+                        <div class="col-sm-10">
+                            <input type="email" class="form-control" id="r_username" placeholder="用户名" name="username">
+                        </div>
+                    </div>
+                    <div class="form-group">
+                        <label class="col-sm-2 control-label">密码</label>
+                        <div class="col-sm-10">
+                            <input type="password" class="form-control" id="r_password" placeholder="密码" name="password">
+                        </div>
+                    </div>
+                </form>
+            </div>
+            <div class="modal-footer">
+                <button type="button" class="btn btn-primary" id="btn_reg">注册</button>
+                <button type="button" class="btn btn-default" data-dismiss="modal">关闭</button>
+            </div>
+        </div>
+    </div>
+</div>
+</body>
+<script th:inline="javascript">
+    var register = function () {
+        $.ajax({
+            url: "/index/register",
+            data: {
+                username: $("#r_username").val(),
+                password: $("#r_password").val()
+            },
+            type: "post",
+            dataType: "text",
+            success: function () {
+                alert("注册成功");
+            },
+            error: function () {
+                alert("注册失败");
+            }
+        });
+    }
+
+    $("#btn_reg").click(function () {
+        register();
+    });
+</script>
+</html>
