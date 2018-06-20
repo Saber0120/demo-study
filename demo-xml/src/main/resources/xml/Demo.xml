@@ -1,0 +1,591 @@
+﻿<?xml version="1.0" encoding="UTF-8" standalone="yes"?>
+<Application Name="电厂模式计算应用程序" EnName="Plant Mode Application" Abbreviation="PLM" Description="执行电厂模式计算" EnDescription="Plant mode  calculation" DLL="PLM.dll" MasterStatus="masterId" SlaveStatus="slaveId">
+	<DisplayPage PagesCount="2">
+		<!-- 实例页面布局信息 -->
+	</DisplayPage>
+	<Instance FunctionName="PLM" id="0" Cycle="1000" MinCycle="200" WithStat="True" >
+		<Inputs>
+			<Input Type="tAnalog" InputName="KOS_RSA43_T1" SignalName="KOS_RSA43_T1"/>
+			<Input Type="tAnalog" InputName="KOS_RSA3X_N1" SignalName="KOS_RSA3X_N1"/>
+			<Input Type="tAnalog" InputName="KOS_RSU87_Y6" SignalName="KOS_RSU87_Y6"/>
+			<Input Type="tAnalog" InputName="KOS_AP_PLM_00016" SignalName="KOS_AP_PLM_00016"/>
+			<Input Type="tDigital" InputName="PMS_P4_1_X0" SignalName="PMS_P4_1_X0"/>
+			<Input Type="tDigital" InputName="KOS_AP_PLM_00033" SignalName="KOS_AP_PLM_00033"/>
+		</Inputs>
+		<Parameters>
+			<Parameter Type="tR32" ParameterName="AGN0_VAL_1" InitValue="0" AdjustableType="Changeable" Description="AGN0_VAL_1" EnDescription="AGN0_VAL_1" />
+			<Parameter Type="tR32" ParameterName="AGN0_VAL_2" InitValue="1" AdjustableType="Changeable" Description="AGN0_VAL_2" EnDescription="AGN0_VAL_2" />
+			<Parameter Type="tR32" ParameterName="AGN0_VAL_3" InitValue="2" AdjustableType="Changeable" Description="AGN0_VAL_3" EnDescription="AGN0_VAL_3" />
+			<Parameter Type="tR32" ParameterName="AGN0_VAL_4" InitValue="3" AdjustableType="Changeable" Description="AGN0_VAL_4" EnDescription="AGN0_VAL_4" />
+			<Parameter Type="tR32" ParameterName="AGN0_VAL_5" InitValue="4" AdjustableType="Changeable" Description="AGN0_VAL_5" EnDescription="AGN0_VAL_5" />
+			<Parameter Type="tR32" ParameterName="AGN0_VAL_6" InitValue="5" AdjustableType="Changeable" Description="AGN0_VAL_6" EnDescription="AGN0_VAL_6" />
+			<Parameter Type="tR32" ParameterName="AGN0_VAL_7" InitValue="6" AdjustableType="Changeable" Description="AGN0_VAL_7" EnDescription="AGN0_VAL_7" />
+			<Parameter Type="tR32" ParameterName="AGN0_VAL_8" InitValue="7" AdjustableType="Changeable" Description="AGN0_VAL_8" EnDescription="AGN0_VAL_8" />
+			<Parameter Type="tR32" ParameterName="PLM3_HIGH_1" InitValue="128" AdjustableType="Changeable" Description="PLM3_HIGH_1" EnDescription="PLM3_HIGH_1" />
+			<Parameter Type="tR32" ParameterName="PLM3_LOW_1" InitValue="5" AdjustableType="Changeable" Description="PLM3_LOW_1" EnDescription="PLM3_LOW_1" />
+			<Parameter Type="tR32" ParameterName="PLM3_DB_1" InitValue="0.01" AdjustableType="Changeable" Description="PLM3_DB_1" EnDescription="PLM3_DB_1" />
+			<Parameter Type="tR32" ParameterName="PLM3_HIGH_2" InitValue="5.01" AdjustableType="Changeable" Description="PLM3_HIGH_2" EnDescription="PLM3_HIGH_2" />
+			<Parameter Type="tR32" ParameterName="PLM3_LOW_2" InitValue="0" AdjustableType="Changeable" Description="PLM3_LOW_2" EnDescription="PLM3_LOW_2" />
+			<Parameter Type="tR32" ParameterName="PLM3_DB_2" InitValue="0.01" AdjustableType="Changeable" Description="PLM3_DB_2" EnDescription="PLM3_DB_2" />
+			<Parameter Type="tR32" ParameterName="PLM3_HIGH_3" InitValue="338" AdjustableType="Changeable" Description="PLM3_HIGH_3" EnDescription="PLM3_HIGH_3" />
+			<Parameter Type="tR32" ParameterName="PLM3_LOW_3" InitValue="215.6" AdjustableType="Changeable" Description="PLM3_LOW_3" EnDescription="PLM3_LOW_3" />
+			<Parameter Type="tR32" ParameterName="PLM3_DB_3" InitValue="0.01" AdjustableType="Changeable" Description="PLM3_DB_3" EnDescription="PLM3_DB_3" />
+			<Parameter Type="tR32" ParameterName="PLM3_HIGH_4" InitValue="215.61" AdjustableType="Changeable" Description="PLM3_HIGH_4" EnDescription="PLM3_HIGH_4" />
+			<Parameter Type="tR32" ParameterName="PLM3_LOW_4" InitValue="93.3" AdjustableType="Changeable" Description="PLM3_LOW_4" EnDescription="PLM3_LOW_4" />
+			<Parameter Type="tR32" ParameterName="PLM3_DB_4" InitValue="0.01" AdjustableType="Changeable" Description="PLM3_DB_4" EnDescription="PLM3_DB_4" />
+			<Parameter Type="tR32" ParameterName="PLM3_HIGH_5" InitValue="93.31" AdjustableType="Changeable" Description="PLM3_HIGH_5" EnDescription="PLM3_HIGH_5" />
+			<Parameter Type="tR32" ParameterName="PLM3_LOW_5" InitValue="-0.01" AdjustableType="Changeable" Description="PLM3_LOW_5" EnDescription="PLM3_LOW_5" />
+			<Parameter Type="tR32" ParameterName="PLM3_DB_5" InitValue="0.01" AdjustableType="Changeable" Description="PLM3_DB_5" EnDescription="PLM3_DB_5" />
+		</Parameters>
+		<Outputs>
+			<Output Type="tAnalog" OutputName="KOS_PLM09_Y1" SignalName="KOS_PLM09_Y1"/>
+			<Output Type="tAnalog" OutputName="KOS_PLM10_Y0" SignalName="KOS_PLM10_Y0"/>
+			<Output Type="tAnalog" OutputName="KOS_PLM20_Y0" SignalName="KOS_PLM20_Y0"/>
+			<Output Type="tAnalog" OutputName="KOS_PLM20_Y1" SignalName="KOS_PLM20_Y1"/>
+			<Output Type="tDigital" OutputName="KOS_PLM01_X1" SignalName="KOS_PLM01_X1"/>
+			<Output Type="tDigital" OutputName="KOS_PLM02_X1" SignalName="KOS_PLM02_X1"/>
+			<Output Type="tDigital" OutputName="KOS_PLM03_X1" SignalName="KOS_PLM03_X1"/>
+			<Output Type="tDigital" OutputName="KOS_PLM04_X1" SignalName="KOS_PLM04_X1"/>
+			<Output Type="tDigital" OutputName="KOS_PLM05_X1" SignalName="KOS_PLM05_X1"/>
+			<Output Type="tDigital" OutputName="KOS_PLM12_X2" SignalName="KOS_PLM12_X2"/>
+			<Output Type="tDigital" OutputName="KOS_PLM20_X1" SignalName="KOS_PLM20_X1"/>
+			<Output Type="tDigital" OutputName="KOS_PLMMOD01_X2" SignalName="KOS_PLMMOD01_X2"/>
+			<Output Type="tDigital" OutputName="KOS_PLMMOD03_X2" SignalName="KOS_PLMMOD03_X2"/>
+			<Output Type="tDigital" OutputName="KOS_PLMMOD05_X2" SignalName="KOS_PLMMOD05_X2"/>
+			<Output Type="tDigital" OutputName="KOS_PLMMOD07_X2" SignalName="KOS_PLMMOD07_X2"/>
+			<Output Type="tDigital" OutputName="KOS_PLMMOD09_X2" SignalName="KOS_PLMMOD09_X2"/>
+			<Output Type="tDigital" OutputName="KOS_PLMMOD11_X2" SignalName="KOS_PLMMOD11_X2"/>
+			<Output Type="tDigital" OutputName="KOS_PLMMOD13_X2" SignalName="KOS_PLMMOD13_X2"/>
+		</Outputs>
+		<Drawing DiagramName="diagram_PLM_1" PageName="PLM_Page_1">
+				<Module ModuleName="GCS::AGN0" InstNumber="1">
+					<Inputs>
+					</Inputs>
+					<Parameters>
+						<Parameter Type="tR32" ParameterName="Val" SourceModuleName="" SourceModuleInstNumber="" SourceTag="Hidden" SourceValue="AGN0_VAL_1"/>
+					</Parameters>
+					<Outputs>
+						<Output Type="tAnalog" OutputName="Out" TargetTag="" TargetValue=""/>
+					</Outputs>
+					<Layout>
+						<Left value="45"/>
+						<Top value="11978"/>
+						<Width value="3006"/>
+						<Height value="1444"/>
+					</Layout>
+				</Module>
+				<Module ModuleName="FNA::COMO" InstNumber="8">
+					<Inputs>
+						<Input Type="tAnalog" InputName="In1" SourceModuleName="" SourceModuleInstNumber="" SourceTag="Input" SourceValue="KOS_RSU87_Y6"/>
+						<Input Type="tAnalog" InputName="In2" SourceModuleName="GCS::AGN0" SourceModuleInstNumber="1" SourceTag="Operator" SourceValue="Out"/>
+						<Input Type="tDigital" InputName="Enbl" SourceModuleName="" SourceModuleInstNumber="" SourceTag="ConstValue" SourceValue="{SignalValue=true  DataQuality=GOOD  Dcs=0}"/>
+					</Inputs>
+					<Parameters>
+					</Parameters>
+					<Outputs>
+						<Output Type="tDigital" OutputName="Gt" TargetTag="" TargetValue=""/>
+						<Output Type="tDigital" OutputName="Lt" TargetTag="Terminator" TargetValue="_Terminator_"/>
+						<Output Type="tDigital" OutputName="Eq" TargetTag="Terminator" TargetValue="_Terminator_"/>
+						<Output Type="tDigital" OutputName="Neq" TargetTag="Terminator" TargetValue="_Terminator_"/>
+					</Outputs>
+					<Layout>
+						<Left value="3458"/>
+						<Top value="10602"/>
+						<Width value="3006"/>
+						<Height value="3059"/>
+					</Layout>
+				</Module>
+				<Module ModuleName="FND::AND0" InstNumber="1">
+					<Inputs>
+						<Input Type="tDigital" InputName="In1" SourceModuleName="FNA::COMO" SourceModuleInstNumber="8" SourceTag="Operator" SourceValue="Gt"/>
+						<Input Type="tDigital" InputName="In2" SourceModuleName="FND::NOT0" SourceModuleInstNumber="2" SourceTag="Operator" SourceValue="Out"/>
+						<Input Type="tDigital" InputName="In3" SourceModuleName="" SourceModuleInstNumber="" SourceTag="ConstValue" SourceValue="{SignalValue=false  DataQuality=GOOD  Dcs=0}"/>
+						<Input Type="tDigital" InputName="In4" SourceModuleName="" SourceModuleInstNumber="" SourceTag="ConstValue" SourceValue="{SignalValue=false  DataQuality=GOOD  Dcs=0}"/>
+						<Input Type="tDigital" InputName="In5" SourceModuleName="" SourceModuleInstNumber="" SourceTag="ConstValue" SourceValue="{SignalValue=false  DataQuality=GOOD  Dcs=0}"/>
+						<Input Type="tDigital" InputName="In6" SourceModuleName="" SourceModuleInstNumber="" SourceTag="ConstValue" SourceValue="{SignalValue=false  DataQuality=GOOD  Dcs=0}"/>
+						<Input Type="tDigital" InputName="In7" SourceModuleName="" SourceModuleInstNumber="" SourceTag="ConstValue" SourceValue="{SignalValue=false  DataQuality=GOOD  Dcs=0}"/>
+						<Input Type="tDigital" InputName="In8" SourceModuleName="" SourceModuleInstNumber="" SourceTag="ConstValue" SourceValue="{SignalValue=false  DataQuality=GOOD  Dcs=0}"/>
+						<Input Type="tDigital" InputName="In9" SourceModuleName="" SourceModuleInstNumber="" SourceTag="ConstValue" SourceValue="{SignalValue=false  DataQuality=GOOD  Dcs=0}"/>
+						<Input Type="tDigital" InputName="In10" SourceModuleName="" SourceModuleInstNumber="" SourceTag="ConstValue" SourceValue="{SignalValue=false  DataQuality=GOOD  Dcs=0}"/>
+						<Input Type="tDigital" InputName="In11" SourceModuleName="" SourceModuleInstNumber="" SourceTag="ConstValue" SourceValue="{SignalValue=false  DataQuality=GOOD  Dcs=0}"/>
+						<Input Type="tDigital" InputName="In12" SourceModuleName="" SourceModuleInstNumber="" SourceTag="ConstValue" SourceValue="{SignalValue=false  DataQuality=GOOD  Dcs=0}"/>
+						<Input Type="tDigital" InputName="In13" SourceModuleName="" SourceModuleInstNumber="" SourceTag="ConstValue" SourceValue="{SignalValue=false  DataQuality=GOOD  Dcs=0}"/>
+						<Input Type="tDigital" InputName="In14" SourceModuleName="" SourceModuleInstNumber="" SourceTag="ConstValue" SourceValue="{SignalValue=false  DataQuality=GOOD  Dcs=0}"/>
+						<Input Type="tDigital" InputName="In15" SourceModuleName="" SourceModuleInstNumber="" SourceTag="ConstValue" SourceValue="{SignalValue=false  DataQuality=GOOD  Dcs=0}"/>
+						<Input Type="tDigital" InputName="In16" SourceModuleName="" SourceModuleInstNumber="" SourceTag="ConstValue" SourceValue="{SignalValue=false  DataQuality=GOOD  Dcs=0}"/>
+					</Inputs>
+					<Parameters>
+					</Parameters>
+					<Outputs>
+						<Output Type="tDigital" OutputName="Out" TargetTag="" TargetValue=""/>
+					</Outputs>
+					<Layout>
+						<Left value="7850"/>
+						<Top value="10708"/>
+						<Width value="3032"/>
+						<Height value="8482"/>
+					</Layout>
+				</Module>
+				<Module ModuleName="FND::NOT0" InstNumber="2">
+					<Inputs>
+						<Input Type="tDigital" InputName="In" SourceModuleName="" SourceModuleInstNumber="" SourceTag="Input" SourceValue="PMS_P4_1_X0"/>
+					</Inputs>
+					<Parameters>
+					</Parameters>
+					<Outputs>
+						<Output Type="tDigital" OutputName="Out" TargetTag="" TargetValue=""/>
+					</Outputs>
+					<Layout>
+						<Left value="3458"/>
+						<Top value="14068"/>
+						<Width value="3032"/>
+						<Height value="1418"/>
+					</Layout>
+				</Module>
+				<Module ModuleName="FBM::PLM3" InstNumber="7">
+					<Inputs>
+						<Input Type="tAnalog" InputName="INP" SourceModuleName="" SourceModuleInstNumber="" SourceTag="Input" SourceValue="KOS_RSA43_T1"/>
+						<Input Type="tDigital" InputName="FL1" SourceModuleName="" SourceModuleInstNumber="" SourceTag="ConstValue" SourceValue="{SignalValue=true  DataQuality=GOOD  Dcs=0}"/>
+						<Input Type="tDigital" InputName="FL2" SourceModuleName="" SourceModuleInstNumber="" SourceTag="ConstValue" SourceValue="{SignalValue=true  DataQuality=GOOD  Dcs=0}"/>
+					</Inputs>
+					<Parameters>
+						<Parameter Type="tR32" ParameterName="HIGH" SourceModuleName="" SourceModuleInstNumber="" SourceTag="Hidden" SourceValue="PLM3_HIGH_3"/>
+						<Parameter Type="tR32" ParameterName="LOW" SourceModuleName="" SourceModuleInstNumber="" SourceTag="Hidden" SourceValue="PLM3_LOW_3"/>
+						<Parameter Type="tR32" ParameterName="DB" SourceModuleName="" SourceModuleInstNumber="" SourceTag="Hidden" SourceValue="PLM3_DB_3"/>
+					</Parameters>
+					<Outputs>
+						<Output Type="tDigital" OutputName="DM" TargetTag="Output" TargetValue="KOS_PLM01_X1"/>
+					</Outputs>
+					<Layout>
+						<Left value="8591"/>
+						<Top value="151"/>
+						<Width value="3032"/>
+						<Height value="2635"/>
+					</Layout>
+				</Module>
+				<Module ModuleName="FBM::PLM3" InstNumber="8">
+					<Inputs>
+						<Input Type="tAnalog" InputName="INP" SourceModuleName="" SourceModuleInstNumber="" SourceTag="Input" SourceValue="KOS_RSA43_T1"/>
+						<Input Type="tDigital" InputName="FL1" SourceModuleName="" SourceModuleInstNumber="" SourceTag="ConstValue" SourceValue="{SignalValue=true  DataQuality=GOOD  Dcs=0}"/>
+						<Input Type="tDigital" InputName="FL2" SourceModuleName="" SourceModuleInstNumber="" SourceTag="ConstValue" SourceValue="{SignalValue=true  DataQuality=GOOD  Dcs=0}"/>
+					</Inputs>
+					<Parameters>
+						<Parameter Type="tR32" ParameterName="HIGH" SourceModuleName="" SourceModuleInstNumber="" SourceTag="Hidden" SourceValue="PLM3_HIGH_4"/>
+						<Parameter Type="tR32" ParameterName="LOW" SourceModuleName="" SourceModuleInstNumber="" SourceTag="Hidden" SourceValue="PLM3_LOW_4"/>
+						<Parameter Type="tR32" ParameterName="DB" SourceModuleName="" SourceModuleInstNumber="" SourceTag="Hidden" SourceValue="PLM3_DB_4"/>
+					</Parameters>
+					<Outputs>
+						<Output Type="tDigital" OutputName="DM" TargetTag="Output" TargetValue="KOS_PLM02_X1"/>
+					</Outputs>
+					<Layout>
+						<Left value="8512"/>
+						<Top value="3405"/>
+						<Width value="3032"/>
+						<Height value="2662"/>
+					</Layout>
+				</Module>
+				<Module ModuleName="FBM::PLM3" InstNumber="9">
+					<Inputs>
+						<Input Type="tAnalog" InputName="INP" SourceModuleName="" SourceModuleInstNumber="" SourceTag="Input" SourceValue="KOS_RSA43_T1"/>
+						<Input Type="tDigital" InputName="FL1" SourceModuleName="" SourceModuleInstNumber="" SourceTag="ConstValue" SourceValue="{SignalValue=true  DataQuality=GOOD  Dcs=0}"/>
+						<Input Type="tDigital" InputName="FL2" SourceModuleName="" SourceModuleInstNumber="" SourceTag="ConstValue" SourceValue="{SignalValue=true  DataQuality=GOOD  Dcs=0}"/>
+					</Inputs>
+					<Parameters>
+						<Parameter Type="tR32" ParameterName="HIGH" SourceModuleName="" SourceModuleInstNumber="" SourceTag="Hidden" SourceValue="PLM3_HIGH_5"/>
+						<Parameter Type="tR32" ParameterName="LOW" SourceModuleName="" SourceModuleInstNumber="" SourceTag="Hidden" SourceValue="PLM3_LOW_5"/>
+						<Parameter Type="tR32" ParameterName="DB" SourceModuleName="" SourceModuleInstNumber="" SourceTag="Hidden" SourceValue="PLM3_DB_5"/>
+					</Parameters>
+					<Outputs>
+						<Output Type="tDigital" OutputName="DM" TargetTag="Output" TargetValue="KOS_PLM03_X1"/>
+					</Outputs>
+					<Layout>
+						<Left value="8538"/>
+						<Top value="6289"/>
+						<Width value="3032"/>
+						<Height value="2635"/>
+					</Layout>
+				</Module>
+				<Module ModuleName="FBM::PLM3" InstNumber="10">
+					<Inputs>
+						<Input Type="tAnalog" InputName="INP" SourceModuleName="" SourceModuleInstNumber="" SourceTag="Input" SourceValue="KOS_RSA3X_N1"/>
+						<Input Type="tDigital" InputName="FL1" SourceModuleName="FND::AND0" SourceModuleInstNumber="1" SourceTag="Operator" SourceValue="Out"/>
+						<Input Type="tDigital" InputName="FL2" SourceModuleName="" SourceModuleInstNumber="" SourceTag="ConstValue" SourceValue="{SignalValue=true  DataQuality=GOOD  Dcs=0}"/>
+					</Inputs>
+					<Parameters>
+						<Parameter Type="tR32" ParameterName="HIGH" SourceModuleName="" SourceModuleInstNumber="" SourceTag="Hidden" SourceValue="PLM3_HIGH_1"/>
+						<Parameter Type="tR32" ParameterName="LOW" SourceModuleName="" SourceModuleInstNumber="" SourceTag="Hidden" SourceValue="PLM3_LOW_1"/>
+						<Parameter Type="tR32" ParameterName="DB" SourceModuleName="" SourceModuleInstNumber="" SourceTag="Hidden" SourceValue="PLM3_DB_1"/>
+					</Parameters>
+					<Outputs>
+						<Output Type="tDigital" OutputName="DM" TargetTag="Output" TargetValue="KOS_PLM04_X1"/>
+					</Outputs>
+					<Layout>
+						<Left value="16132"/>
+						<Top value="9755"/>
+						<Width value="3032"/>
+						<Height value="3932"/>
+					</Layout>
+				</Module>
+				<Module ModuleName="FBM::PLM3" InstNumber="11">
+					<Inputs>
+						<Input Type="tAnalog" InputName="INP" SourceModuleName="" SourceModuleInstNumber="" SourceTag="Input" SourceValue="KOS_RSA3X_N1"/>
+						<Input Type="tDigital" InputName="FL1" SourceModuleName="FND::AND0" SourceModuleInstNumber="1" SourceTag="Operator" SourceValue="Out"/>
+						<Input Type="tDigital" InputName="FL2" SourceModuleName="" SourceModuleInstNumber="" SourceTag="ConstValue" SourceValue="{SignalValue=true  DataQuality=GOOD  Dcs=0}"/>
+					</Inputs>
+					<Parameters>
+						<Parameter Type="tR32" ParameterName="HIGH" SourceModuleName="" SourceModuleInstNumber="" SourceTag="Hidden" SourceValue="PLM3_HIGH_2"/>
+						<Parameter Type="tR32" ParameterName="LOW" SourceModuleName="" SourceModuleInstNumber="" SourceTag="Hidden" SourceValue="PLM3_LOW_2"/>
+						<Parameter Type="tR32" ParameterName="DB" SourceModuleName="" SourceModuleInstNumber="" SourceTag="Hidden" SourceValue="PLM3_DB_2"/>
+					</Parameters>
+					<Outputs>
+						<Output Type="tDigital" OutputName="DM" TargetTag="Output" TargetValue="KOS_PLM05_X1"/>
+					</Outputs>
+					<Layout>
+						<Left value="16158"/>
+						<Top value="13883"/>
+						<Width value="3032"/>
+						<Height value="3879"/>
+					</Layout>
+				</Module>
+				<Module ModuleName="FBM::PLM2" InstNumber="3">
+					<Inputs>
+						<Input Type="tDigital" InputName="DM1" SourceModuleName="" SourceModuleInstNumber="" SourceTag="ConstValue" SourceValue="{SignalValue=false  DataQuality=GOOD  Dcs=0}"/>
+						<Input Type="tDigital" InputName="DM2" SourceModuleName="" SourceModuleInstNumber="" SourceTag="ConstValue" SourceValue="{SignalValue=false  DataQuality=GOOD  Dcs=0}"/>
+						<Input Type="tDigital" InputName="DM3" SourceModuleName="FBM::PLM3" SourceModuleInstNumber="7" SourceTag="Operator" SourceValue="DM"/>
+						<Input Type="tDigital" InputName="DM4" SourceModuleName="FBM::PLM3" SourceModuleInstNumber="8" SourceTag="Operator" SourceValue="DM"/>
+						<Input Type="tDigital" InputName="DM5" SourceModuleName="FBM::PLM3" SourceModuleInstNumber="9" SourceTag="Operator" SourceValue="DM"/>
+					</Inputs>
+					<Parameters>
+					</Parameters>
+					<Outputs>
+						<Output Type="tAnalog" OutputName="L_MODE" TargetTag="" TargetValue=""/>
+					</Outputs>
+					<Layout>
+						<Left value="19360"/>
+						<Top value="2347"/>
+						<Width value="3508"/>
+						<Height value="3588"/>
+					</Layout>
+				</Module>
+				<Module ModuleName="FBM::PLM2" InstNumber="4">
+					<Inputs>
+						<Input Type="tDigital" InputName="DM1" SourceModuleName="FBM::PLM3" SourceModuleInstNumber="10" SourceTag="Operator" SourceValue="DM"/>
+						<Input Type="tDigital" InputName="DM2" SourceModuleName="FBM::PLM3" SourceModuleInstNumber="11" SourceTag="Operator" SourceValue="DM"/>
+						<Input Type="tDigital" InputName="DM3" SourceModuleName="" SourceModuleInstNumber="" SourceTag="ConstValue" SourceValue="{SignalValue=false  DataQuality=GOOD  Dcs=0}"/>
+						<Input Type="tDigital" InputName="DM4" SourceModuleName="" SourceModuleInstNumber="" SourceTag="ConstValue" SourceValue="{SignalValue=false  DataQuality=GOOD  Dcs=0}"/>
+						<Input Type="tDigital" InputName="DM5" SourceModuleName="" SourceModuleInstNumber="" SourceTag="ConstValue" SourceValue="{SignalValue=false  DataQuality=GOOD  Dcs=0}"/>
+					</Inputs>
+					<Parameters>
+					</Parameters>
+					<Outputs>
+						<Output Type="tAnalog" OutputName="L_MODE" TargetTag="" TargetValue=""/>
+					</Outputs>
+					<Layout>
+						<Left value="22799"/>
+						<Top value="11819"/>
+						<Width value="3509"/>
+						<Height value="3694"/>
+					</Layout>
+				</Module>
+		</Drawing>
+		<Drawing DiagramName="diagram_PLM_2" PageName="PLM_Page_2">
+				<Module ModuleName="FBM::PLM1" InstNumber="2">
+					<Inputs>
+						<Input Type="tAnalog" InputName="MODE_T" SourceModuleName="" SourceModuleInstNumber="" SourceTag="" SourceValue=""/>
+						<Input Type="tAnalog" InputName="MODE_N" SourceModuleName="" SourceModuleInstNumber="" SourceTag="" SourceValue=""/>
+						<Input Type="tAnalog" InputName="MODE_P" SourceModuleName="" SourceModuleInstNumber="" SourceTag="ConstValue" SourceValue="{SignalValue=(0.0=float32)  DataQuality=BAD  Dcs=(0=uint16)}"/>
+					</Inputs>
+					<Parameters>
+					</Parameters>
+					<Outputs>
+						<Output Type="tAnalog" OutputName="A_MODE" TargetTag="Output" TargetValue="KOS_PLM09_Y1"/>
+					</Outputs>
+					<Layout>
+						<Left value="2320"/>
+						<Top value="2797"/>
+						<Width value="4250"/>
+						<Height value="3561"/>
+					</Layout>
+				</Module>
+				<Module ModuleName="FBM::PLM0" InstNumber="2">
+					<Inputs>
+						<Input Type="tAnalog" InputName="A_MODE" SourceModuleName="FBM::PLM1" SourceModuleInstNumber="2" SourceTag="Operator" SourceValue="A_MODE"/>
+						<Input Type="tAnalog" InputName="M_MODE" SourceModuleName="" SourceModuleInstNumber="" SourceTag="Input" SourceValue="KOS_AP_PLM_00016"/>
+						<Input Type="tDigital" InputName="MSEL" SourceModuleName="" SourceModuleInstNumber="" SourceTag="Input" SourceValue="KOS_AP_PLM_00033"/>
+					</Inputs>
+					<Parameters>
+					</Parameters>
+					<Outputs>
+						<Output Type="tAnalog" OutputName="MODE" TargetTag="Output" TargetValue="KOS_PLM20_Y0"/>
+						<Output Type="tDigital" OutputName="MDIS" TargetTag="Output" TargetValue="KOS_PLM20_X1"/>
+						<Output Type="tAnalog" OutputName="S_MODE" TargetTag="Output" TargetValue="KOS_PLM20_Y1"/>
+					</Outputs>
+					<Layout>
+						<Left value="6951"/>
+						<Top value="5972"/>
+						<Width value="4434"/>
+						<Height value="4381"/>
+					</Layout>
+				</Module>
+				<Module ModuleName="FNA::COMO" InstNumber="9">
+					<Inputs>
+						<Input Type="tAnalog" InputName="In1" SourceModuleName="FBM::PLM0" SourceModuleInstNumber="2" SourceTag="Operator" SourceValue="MODE"/>
+						<Input Type="tAnalog" InputName="In2" SourceModuleName="GCS::AGN0" SourceModuleInstNumber="3" SourceTag="Operator" SourceValue="Out"/>
+						<Input Type="tDigital" InputName="Enbl" SourceModuleName="" SourceModuleInstNumber="" SourceTag="ConstValue" SourceValue="{SignalValue=true  DataQuality=GOOD  Dcs=0}"/>
+					</Inputs>
+					<Parameters>
+					</Parameters>
+					<Outputs>
+						<Output Type="tDigital" OutputName="Gt" TargetTag="Terminator" TargetValue="_Terminator_"/>
+						<Output Type="tDigital" OutputName="Lt" TargetTag="Terminator" TargetValue="_Terminator_"/>
+						<Output Type="tDigital" OutputName="Eq" TargetTag="Output" TargetValue="KOS_PLMMOD01_X2"/>
+						<Output Type="tDigital" OutputName="Neq" TargetTag="Terminator" TargetValue="_Terminator_"/>
+					</Outputs>
+					<Layout>
+						<Left value="18468"/>
+						<Top value="79"/>
+						<Width value="3006"/>
+						<Height value="3006"/>
+					</Layout>
+				</Module>
+				<Module ModuleName="FNA::COMO" InstNumber="10">
+					<Inputs>
+						<Input Type="tAnalog" InputName="In1" SourceModuleName="FBM::PLM0" SourceModuleInstNumber="2" SourceTag="Operator" SourceValue="MODE"/>
+						<Input Type="tAnalog" InputName="In2" SourceModuleName="GCS::AGN0" SourceModuleInstNumber="4" SourceTag="Operator" SourceValue="Out"/>
+						<Input Type="tDigital" InputName="Enbl" SourceModuleName="" SourceModuleInstNumber="" SourceTag="ConstValue" SourceValue="{SignalValue=true  DataQuality=GOOD  Dcs=0}"/>
+					</Inputs>
+					<Parameters>
+					</Parameters>
+					<Outputs>
+						<Output Type="tDigital" OutputName="Gt" TargetTag="Terminator" TargetValue="_Terminator_"/>
+						<Output Type="tDigital" OutputName="Lt" TargetTag="Terminator" TargetValue="_Terminator_"/>
+						<Output Type="tDigital" OutputName="Eq" TargetTag="Output" TargetValue="KOS_PLMMOD03_X2"/>
+						<Output Type="tDigital" OutputName="Neq" TargetTag="Terminator" TargetValue="_Terminator_"/>
+					</Outputs>
+					<Layout>
+						<Left value="22278"/>
+						<Top value="2540"/>
+						<Width value="3006"/>
+						<Height value="3032"/>
+					</Layout>
+				</Module>
+				<Module ModuleName="GCS::AGN0" InstNumber="3">
+					<Inputs>
+					</Inputs>
+					<Parameters>
+						<Parameter Type="tR32" ParameterName="Val" SourceModuleName="" SourceModuleInstNumber="" SourceTag="Hidden" SourceValue="AGN0_VAL_2"/>
+					</Parameters>
+					<Outputs>
+						<Output Type="tAnalog" OutputName="Out" TargetTag="" TargetValue=""/>
+					</Outputs>
+					<Layout>
+						<Left value="15020"/>
+						<Top value="892"/>
+						<Width value="3006"/>
+						<Height value="1418"/>
+					</Layout>
+				</Module>
+				<Module ModuleName="GCS::AGN0" InstNumber="4">
+					<Inputs>
+					</Inputs>
+					<Parameters>
+						<Parameter Type="tR32" ParameterName="Val" SourceModuleName="" SourceModuleInstNumber="" SourceTag="Hidden" SourceValue="AGN0_VAL_3"/>
+					</Parameters>
+					<Outputs>
+						<Output Type="tAnalog" OutputName="Out" TargetTag="" TargetValue=""/>
+					</Outputs>
+					<Layout>
+						<Left value="15047"/>
+						<Top value="3352"/>
+						<Width value="2979"/>
+						<Height value="1419"/>
+					</Layout>
+				</Module>
+				<Module ModuleName="GCS::AGN0" InstNumber="5">
+					<Inputs>
+					</Inputs>
+					<Parameters>
+						<Parameter Type="tR32" ParameterName="Val" SourceModuleName="" SourceModuleInstNumber="" SourceTag="Hidden" SourceValue="AGN0_VAL_4"/>
+					</Parameters>
+					<Outputs>
+						<Output Type="tAnalog" OutputName="Out" TargetTag="" TargetValue=""/>
+					</Outputs>
+					<Layout>
+						<Left value="15047"/>
+						<Top value="6342"/>
+						<Width value="2979"/>
+						<Height value="1418"/>
+					</Layout>
+				</Module>
+				<Module ModuleName="GCS::AGN0" InstNumber="6">
+					<Inputs>
+					</Inputs>
+					<Parameters>
+						<Parameter Type="tR32" ParameterName="Val" SourceModuleName="" SourceModuleInstNumber="" SourceTag="Hidden" SourceValue="AGN0_VAL_5"/>
+					</Parameters>
+					<Outputs>
+						<Output Type="tAnalog" OutputName="Out" TargetTag="" TargetValue=""/>
+					</Outputs>
+					<Layout>
+						<Left value="15047"/>
+						<Top value="8750"/>
+						<Width value="2979"/>
+						<Height value="1418"/>
+					</Layout>
+				</Module>
+				<Module ModuleName="GCS::AGN0" InstNumber="7">
+					<Inputs>
+					</Inputs>
+					<Parameters>
+						<Parameter Type="tR32" ParameterName="Val" SourceModuleName="" SourceModuleInstNumber="" SourceTag="Hidden" SourceValue="AGN0_VAL_6"/>
+					</Parameters>
+					<Outputs>
+						<Output Type="tAnalog" OutputName="Out" TargetTag="" TargetValue=""/>
+					</Outputs>
+					<Layout>
+						<Left value="15047"/>
+						<Top value="11422"/>
+						<Width value="2979"/>
+						<Height value="1418"/>
+					</Layout>
+				</Module>
+				<Module ModuleName="GCS::AGN0" InstNumber="8">
+					<Inputs>
+					</Inputs>
+					<Parameters>
+						<Parameter Type="tR32" ParameterName="Val" SourceModuleName="" SourceModuleInstNumber="" SourceTag="Hidden" SourceValue="AGN0_VAL_7"/>
+					</Parameters>
+					<Outputs>
+						<Output Type="tAnalog" OutputName="Out" TargetTag="" TargetValue=""/>
+					</Outputs>
+					<Layout>
+						<Left value="15047"/>
+						<Top value="13883"/>
+						<Width value="2979"/>
+						<Height value="1418"/>
+					</Layout>
+				</Module>
+				<Module ModuleName="GCS::AGN0" InstNumber="9">
+					<Inputs>
+					</Inputs>
+					<Parameters>
+						<Parameter Type="tR32" ParameterName="Val" SourceModuleName="" SourceModuleInstNumber="" SourceTag="Hidden" SourceValue="AGN0_VAL_8"/>
+					</Parameters>
+					<Outputs>
+						<Output Type="tAnalog" OutputName="Out" TargetTag="" TargetValue=""/>
+					</Outputs>
+					<Layout>
+						<Left value="15047"/>
+						<Top value="16820"/>
+						<Width value="2979"/>
+						<Height value="1418"/>
+					</Layout>
+				</Module>
+				<Module ModuleName="FNA::COMO" InstNumber="18">
+					<Inputs>
+						<Input Type="tAnalog" InputName="In1" SourceModuleName="FBM::PLM0" SourceModuleInstNumber="2" SourceTag="Operator" SourceValue="MODE"/>
+						<Input Type="tAnalog" InputName="In2" SourceModuleName="GCS::AGN0" SourceModuleInstNumber="5" SourceTag="Operator" SourceValue="Out"/>
+						<Input Type="tDigital" InputName="Enbl" SourceModuleName="" SourceModuleInstNumber="" SourceTag="ConstValue" SourceValue="{SignalValue=true  DataQuality=GOOD  Dcs=0}"/>
+					</Inputs>
+					<Parameters>
+					</Parameters>
+					<Outputs>
+						<Output Type="tDigital" OutputName="Gt" TargetTag="Terminator" TargetValue="_Terminator_"/>
+						<Output Type="tDigital" OutputName="Lt" TargetTag="Terminator" TargetValue="_Terminator_"/>
+						<Output Type="tDigital" OutputName="Eq" TargetTag="Output" TargetValue="KOS_PLMMOD05_X2"/>
+						<Output Type="tDigital" OutputName="Neq" TargetTag="Terminator" TargetValue="_Terminator_"/>
+					</Outputs>
+					<Layout>
+						<Left value="18468"/>
+						<Top value="5530"/>
+						<Width value="2990"/>
+						<Height value="3016"/>
+					</Layout>
+				</Module>
+				<Module ModuleName="FNA::COMO" InstNumber="21">
+					<Inputs>
+						<Input Type="tAnalog" InputName="In1" SourceModuleName="FBM::PLM0" SourceModuleInstNumber="2" SourceTag="Operator" SourceValue="MODE"/>
+						<Input Type="tAnalog" InputName="In2" SourceModuleName="GCS::AGN0" SourceModuleInstNumber="6" SourceTag="Operator" SourceValue="Out"/>
+						<Input Type="tDigital" InputName="Enbl" SourceModuleName="" SourceModuleInstNumber="" SourceTag="ConstValue" SourceValue="{SignalValue=true  DataQuality=GOOD  Dcs=0}"/>
+					</Inputs>
+					<Parameters>
+					</Parameters>
+					<Outputs>
+						<Output Type="tDigital" OutputName="Gt" TargetTag="Terminator" TargetValue="_Terminator_"/>
+						<Output Type="tDigital" OutputName="Lt" TargetTag="Terminator" TargetValue="_Terminator_"/>
+						<Output Type="tDigital" OutputName="Eq" TargetTag="Output" TargetValue="KOS_PLMMOD07_X2"/>
+						<Output Type="tDigital" OutputName="Neq" TargetTag="Terminator" TargetValue="_Terminator_"/>
+					</Outputs>
+					<Layout>
+						<Left value="22278"/>
+						<Top value="7938"/>
+						<Width value="2990"/>
+						<Height value="3017"/>
+					</Layout>
+				</Module>
+				<Module ModuleName="FNA::COMO" InstNumber="22">
+					<Inputs>
+						<Input Type="tAnalog" InputName="In1" SourceModuleName="FBM::PLM0" SourceModuleInstNumber="2" SourceTag="Operator" SourceValue="MODE"/>
+						<Input Type="tAnalog" InputName="In2" SourceModuleName="GCS::AGN0" SourceModuleInstNumber="7" SourceTag="Operator" SourceValue="Out"/>
+						<Input Type="tDigital" InputName="Enbl" SourceModuleName="" SourceModuleInstNumber="" SourceTag="ConstValue" SourceValue="{SignalValue=true  DataQuality=GOOD  Dcs=0}"/>
+					</Inputs>
+					<Parameters>
+					</Parameters>
+					<Outputs>
+						<Output Type="tDigital" OutputName="Gt" TargetTag="Terminator" TargetValue="_Terminator_"/>
+						<Output Type="tDigital" OutputName="Lt" TargetTag="Terminator" TargetValue="_Terminator_"/>
+						<Output Type="tDigital" OutputName="Eq" TargetTag="Output" TargetValue="KOS_PLMMOD09_X2"/>
+						<Output Type="tDigital" OutputName="Neq" TargetTag="Terminator" TargetValue="_Terminator_"/>
+					</Outputs>
+					<Layout>
+						<Left value="18468"/>
+						<Top value="10610"/>
+						<Width value="2990"/>
+						<Height value="3016"/>
+					</Layout>
+				</Module>
+				<Module ModuleName="FNA::COMO" InstNumber="25">
+					<Inputs>
+						<Input Type="tAnalog" InputName="In1" SourceModuleName="FBM::PLM0" SourceModuleInstNumber="2" SourceTag="Operator" SourceValue="MODE"/>
+						<Input Type="tAnalog" InputName="In2" SourceModuleName="GCS::AGN0" SourceModuleInstNumber="8" SourceTag="Operator" SourceValue="Out"/>
+						<Input Type="tDigital" InputName="Enbl" SourceModuleName="" SourceModuleInstNumber="" SourceTag="ConstValue" SourceValue="{SignalValue=true  DataQuality=GOOD  Dcs=0}"/>
+					</Inputs>
+					<Parameters>
+					</Parameters>
+					<Outputs>
+						<Output Type="tDigital" OutputName="Gt" TargetTag="Terminator" TargetValue="_Terminator_"/>
+						<Output Type="tDigital" OutputName="Lt" TargetTag="Terminator" TargetValue="_Terminator_"/>
+						<Output Type="tDigital" OutputName="Eq" TargetTag="Output" TargetValue="KOS_PLMMOD11_X2"/>
+						<Output Type="tDigital" OutputName="Neq" TargetTag="Terminator" TargetValue="_Terminator_"/>
+					</Outputs>
+					<Layout>
+						<Left value="22278"/>
+						<Top value="13070"/>
+						<Width value="2990"/>
+						<Height value="3016"/>
+					</Layout>
+				</Module>
+				<Module ModuleName="FNA::COMO" InstNumber="28">
+					<Inputs>
+						<Input Type="tAnalog" InputName="In1" SourceModuleName="FBM::PLM0" SourceModuleInstNumber="2" SourceTag="Operator" SourceValue="MODE"/>
+						<Input Type="tAnalog" InputName="In2" SourceModuleName="GCS::AGN0" SourceModuleInstNumber="9" SourceTag="Operator" SourceValue="Out"/>
+						<Input Type="tDigital" InputName="Enbl" SourceModuleName="" SourceModuleInstNumber="" SourceTag="ConstValue" SourceValue="{SignalValue=true  DataQuality=GOOD  Dcs=0}"/>
+					</Inputs>
+					<Parameters>
+					</Parameters>
+					<Outputs>
+						<Output Type="tDigital" OutputName="Gt" TargetTag="Terminator" TargetValue="_Terminator_"/>
+						<Output Type="tDigital" OutputName="Lt" TargetTag="Terminator" TargetValue="_Terminator_"/>
+						<Output Type="tDigital" OutputName="Eq" TargetTag="Output" TargetValue="KOS_PLMMOD13_X2"/>
+						<Output Type="tDigital" OutputName="Neq" TargetTag="Terminator" TargetValue="_Terminator_"/>
+					</Outputs>
+					<Layout>
+						<Left value="18891"/>
+						<Top value="16007"/>
+						<Width value="2990"/>
+						<Height value="3016"/>
+					</Layout>
+				</Module>
+		</Drawing>
+	</Instance>
+</Application>
