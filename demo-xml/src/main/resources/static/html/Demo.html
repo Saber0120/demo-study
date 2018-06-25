@@ -3,45 +3,123 @@
 <head>
     <meta charset="UTF-8">
     <title>Demo</title>
-    <link rel="stylesheet" href="../css/bootstrap.min.css">
+    <style>
+        .item,.itemInput,.itemOutput {
+            position: absolute;
+        }
+    </style>
 </head>
-<body>
-<div class="container">
-    <h3>Inputs</h3>
-    <form class="form-horizontal">
-        <div class="form-group">
-            <label class="col-md-2 control-label">123</label>
-            <div class="col-md-10">
-                <input type="text" class="form-control" value="456"/>
-            </div>
-        </div>
-        <div class="form-group">
-            <label class="col-md-2 control-label">111</label>
-            <div class="col-md-10">
-                <p class="form-control-static">222</p>
-            </div>
-        </div>
-    </form>
-    <h3>Parameters</h3>
-    <h3>Outputs</h3>
+<body style="margin: 0; padding: 0;">
+<div style="width: 2860px; height: 1924px;" id="items">
+
 </div>
 </body>
-<script src="../js/jquery-1.9.1.min.js"></script>
-<script src="../js/bootstrap.min.js"></script>
-<script src="../js/ajax-object.js"></script>
+<script src="https://cdn.bootcss.com/jquery/2.1.1/jquery.min.js"></script>
+<script src="https://cdn.bootcss.com/jqueryui/1.9.2/jquery-ui.min.js"></script>
+<script src="https://cdn.bootcss.com/jsPlumb/1.4.1/jquery.jsPlumb-1.4.1-all.js"></script>
+
 <script>
-    var initElement = function () {
-        var ajax = new $ax("/demo", function (data) {
-            alert("success");
-        }, function () {
-            alert("error");
+    var instance;
+    var color = '#222';
+//    var defaultAnchors = [[0, 0.5, -1, 0], [0, 0.25, -1, 0], [0, 0.75, -1, 0], [1, 0.5, 1, 0], [1, 0.25, 1, 0], [1, 0.75, 1, 0]];
+    var defaultAnchors = ["Right", "Left"];
+
+    jsPlumb.ready(function () {
+        instance = jsPlumb.getInstance({
+            //连线
+            Connector: ['Flowchart'],
+            //锚点
+            Anchor: defaultAnchors,
+            //拖动时的演示
+//            DragOptions: {cursor: 'pointer', zIndex: 2000},
+            //连接线的样式
+            PaintStyle: {strokeStyle: 'black', lineWidth: 1},
+            //连接点的样式
+            EndpointStyle: {radius: 1, fillStyle: '#000000'},
+            //hover时线样式
+            HoverPaintStyle: {strokeStyle: 'green'},
+            //hover时点的样式
+            EndpointHoverStyle: {fillStyle: 'red'},
+            Container: 'items'    //Either an element id, a DOM element, or a selector from the underlying library
         });
-        ajax.setType('get');
-        ajax.start();
-    };
+
+        jsPlumb.fire('jsPlumbdemoLoaded', instance);
+    });
 
     $(function () {
-        initElement();
+        $.ajax({
+            url: '/findInfo',
+            type: 'get',
+            dataType: 'json',
+            async: false,
+            success: function (data) {
+                var modules = data['diagram_PLM_1~0'];
+                $.each(modules, function (index, data) {
+//                    console.log(data);
+                    var html = "";
+                    if (data.type === "input") {
+                        html = "<div class='itemInput' id='" + data.name + "' style='left: " + data.left + "px;top: " + data.top + "px;width: " + data.width + "px;height: " + data.height + "px;text-align: center;line-height: 50px;'>" + data.name + "</div>";
+                    } else if (data.type === "output") {
+                        html = "<div class='itemOutput' id='" + data.name + "' style='left: " + data.left + "px;top: " + data.top + "px;width: " + data.width + "px;height: " + data.height + "px;text-align: center;line-height: 50px;'>" + data.name + "</div>";
+                    } else {
+                        html = "<div class='item' id='" + data.name + "' style='left: " + data.left + "px;top: " + data.top + "px;width: " + data.width + "px;height: " + data.height + "px;border: 2px solid black;background-color: #FFF68F;text-align: center;'>" + data.name + "</div>";
+                    }
+                    $("#items").append(html);
+                });
+
+                instance.doWhileSuspended(function () {
+                    var arrowCommon = {foldback: .7, fillStyle: color, width: 14},
+                        overlays = [
+                            ['Arrow', {location: .8}, arrowCommon],
+                            // ['Arrow', {location:.3, direction:-1}, arrowCommon],
+                        ];
+                    var windows = jsPlumb.getSelector('.item');
+                    var windowsInput = jsPlumb.getSelector('.itemInput');
+                    var windowsOutput = jsPlumb.getSelector('.itemOutput');
+
+                    for (var i = 0; i < windows.length; i++) {
+                        instance.addEndpoint(windows[i], {
+                            uuid: windows[i].getAttribute('id') + "Source",
+//                            anchor: ['Right', [1, 0.25, 1, 0], [1, 0.75, 1, 0]],
+                            maxConnections: -1
+                        });
+                        instance.addEndpoint(windows[i], {
+                            uuid: windows[i].getAttribute('id') + "Target",
+//                            anchor: ['Left', [0, 0.25, -1, 0], [0, 0.75, -1, 0]],
+                            maxConnections: -1
+                        });
+                    }
+                    for (var i = 0; i < windowsInput.length; i++) {
+                        instance.addEndpoint(windowsInput[i], {
+                            uuid: windowsInput[i].getAttribute('id') + "Source",
+                            anchor: ['Right'],
+                            maxConnections: -1
+                        });
+                    }
+                    for (var i = 0; i < windowsOutput.length; i++) {
+                        instance.addEndpoint(windowsOutput[i], {
+                            uuid: windowsOutput[i].getAttribute('id') + "Target",
+                            anchor: ['Left'],
+                            maxConnections: -1
+                        });
+                    }
+                    //connect 函数
+                    $.each(modules, function (index, data) {
+                        var id2 = data.name;
+                        $.each(data['sourceModule'], function (index, sourceModule) {
+                            var id1 = sourceModule.name;
+                            instance.connect({uuids: [id1 + "Source", id2 + "Target"]});
+                        });
+                    });
+
+                    //jquery ui里的draggable功能
+//                    instance.draggable(windows);
+                });
+            },
+            error: function () {
+                alert("解析xml异常");
+            }
+        })
     });
 </script>
 </html>

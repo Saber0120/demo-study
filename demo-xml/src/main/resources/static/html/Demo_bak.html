@@ -1,0 +1,47 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <title>Demo</title>
+    <link rel="stylesheet" href="../css/bootstrap.min.css">
+</head>
+<body>
+<div class="container">
+    <h3>Inputs</h3>
+    <form class="form-horizontal">
+        <div class="form-group">
+            <label class="col-md-2 control-label">123</label>
+            <div class="col-md-10">
+                <input type="text" class="form-control" value="456"/>
+            </div>
+        </div>
+        <div class="form-group">
+            <label class="col-md-2 control-label">111</label>
+            <div class="col-md-10">
+                <p class="form-control-static">222</p>
+            </div>
+        </div>
+    </form>
+    <h3>Parameters</h3>
+    <h3>Outputs</h3>
+</div>
+</body>
+<script src="../js/jquery-1.9.1.min.js"></script>
+<script src="../js/bootstrap.min.js"></script>
+<script src="../js/ajax-object.js"></script>
+<script>
+    var initElement = function () {
+        var ajax = new $ax("/demo", function (data) {
+            alert("success");
+        }, function () {
+            alert("error");
+        });
+        ajax.setType('get');
+        ajax.start();
+    };
+
+    $(function () {
+        initElement();
+    });
+</script>
+</html>
