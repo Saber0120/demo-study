@@ -10,7 +10,7 @@
     </style>
 </head>
 <body style="margin: 0; padding: 0;">
-<div style="width: 5720px; height: 3848px;" id="items">
+<div style="width: 2860px; height: 1924px;" id="items">
 
 </div>
 </body>
@@ -53,7 +53,7 @@
             dataType: 'json',
             async: false,
             success: function (data) {
-                var modules = data['diagram_PLM_1~0'];
+                var modules = data['diagram_PLM_1'];
                 $.each(modules, function (index, data) {
                     var html = "";
                     if (data.type === "module") {

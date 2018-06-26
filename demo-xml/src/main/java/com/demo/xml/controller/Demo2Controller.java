@@ -84,10 +84,10 @@ public class Demo2Controller {
                     String name = module.attribute("ModuleName").getValue();
                     name = name.substring(name.lastIndexOf("::") + 2, name.length());
                     String instNumber = module.attribute("InstNumber").getValue();
-                    double left = Double.valueOf(module.element("Layout").element("Left").attribute("value").getValue()) / totalWidth * 5720;
-                    double top = Double.valueOf(module.element("Layout").element("Top").attribute("value").getValue()) / totalHeight * 3848;
-                    double width = Double.valueOf(module.element("Layout").element("Width").attribute("value").getValue()) / totalWidth * 5720;
-                    double height = Double.valueOf(module.element("Layout").element("Height").attribute("value").getValue()) / totalHeight * 3848;
+                    double left = Double.valueOf(module.element("Layout").element("Left").attribute("value").getValue()) / totalWidth * 2860;
+                    double top = Double.valueOf(module.element("Layout").element("Top").attribute("value").getValue()) / totalHeight * 1924;
+                    double width = Double.valueOf(module.element("Layout").element("Width").attribute("value").getValue()) / totalWidth * 2860;
+                    double height = Double.valueOf(module.element("Layout").element("Height").attribute("value").getValue()) / totalHeight * 1924;
                     left = Double.valueOf(String.format("%.2f", left));
                     top = Double.valueOf(String.format("%.2f", top));
                     width = Double.valueOf(String.format("%.2f", width));
@@ -137,7 +137,7 @@ public class Demo2Controller {
                                 source.setName(m.getName() + "_" + inputName);
                                 source.setModuleName("DIGITAL_");// 这块不知道显示什么名称，暂时固定显示DIGITAL_
                                 int size = existInputSize(m.getSourceModule());
-                                source.setTop(top + 35 * size);
+                                source.setTop(top + 30 * size);
                                 source.setLeft(left - 400);
                                 source.setWidth(200);
                                 source.setHeight(30);
@@ -160,7 +160,7 @@ public class Demo2Controller {
                                 target.setName(targetValue);
                                 target.setModuleName(targetValue);
                                 int size = existOutputSize(m.getName(), moduleList);
-                                target.setTop(top + 35 * size);
+                                target.setTop(top + 30 * size);
                                 target.setLeft(left + width + 200);
                                 target.setWidth(200);
                                 target.setHeight(30);
@@ -172,7 +172,7 @@ public class Demo2Controller {
                                 target.setName(m.getName() + "_" + outputName);
                                 target.setModuleName("");
                                 int size = existOutputSize(m.getName(), moduleList);
-                                target.setTop(top + 35 * size);
+                                target.setTop(top + 30 * size);
                                 target.setLeft(left + width + 200);
                                 target.setWidth(200);
                                 target.setHeight(30);
@@ -202,8 +202,8 @@ public class Demo2Controller {
                     }
 
                 }
-                result.put(drawingName + "~" + i, moduleList);
-                drawingNameList.add(drawingName + "~" + i);
+                result.put(drawingName, moduleList);
+                drawingNameList.add(drawingName);
             }
             result.put("drawingName", drawingNameList);
         } catch (Exception e) {
