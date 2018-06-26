@@ -12,7 +12,9 @@ public class Module implements Serializable {
 
     private static final long serialVersionUID = 7192372531996914887L;
 
-    private String name;//名称
+    private String name;//唯一名称
+
+    private String moduleName;//名称(用于显示)
 
     private double top;//绝对定位上位移
 
@@ -22,9 +24,9 @@ public class Module implements Serializable {
 
     private double height;//高度
 
-    private String type = "module";//模块类型，"input"|"output"|"module"
+    private String type = "module";//模块类型，"input"|"output"|"module"|"parameter"
 
-    private List<Module> sourceModule = new ArrayList<>();//所连接的其他模块框
+    private List<Module> sourceModule = new ArrayList<>();//(源module，通过name关联)
 
     public String getName() {
         return name;
@@ -32,6 +34,14 @@ public class Module implements Serializable {
 
     public void setName(String name) {
         this.name = name;
+    }
+
+    public String getModuleName() {
+        return moduleName;
+    }
+
+    public void setModuleName(String moduleName) {
+        this.moduleName = moduleName;
     }
 
     public double getTop() {
@@ -76,9 +86,5 @@ public class Module implements Serializable {
 
     public List<Module> getSourceModule() {
         return sourceModule;
-    }/*
-
-    public void setSourceModule(List<Module> sourceModule) {
-        this.sourceModule = sourceModule;
-    }*/
+    }
 }

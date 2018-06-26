@@ -4,13 +4,13 @@
     <meta charset="UTF-8">
     <title>Demo</title>
     <style>
-        .item,.itemInput,.itemOutput {
+        .item, .itemInput, .itemOutput, .itemParameter, .itemX {
             position: absolute;
         }
     </style>
 </head>
 <body style="margin: 0; padding: 0;">
-<div style="width: 2860px; height: 1924px;" id="items">
+<div style="width: 5720px; height: 3848px;" id="items">
 
 </div>
 </body>
@@ -21,7 +21,7 @@
 <script>
     var instance;
     var color = '#222';
-//    var defaultAnchors = [[0, 0.5, -1, 0], [0, 0.25, -1, 0], [0, 0.75, -1, 0], [1, 0.5, 1, 0], [1, 0.25, 1, 0], [1, 0.75, 1, 0]];
+    //    var defaultAnchors = [[0, 0.5, -1, 0], [0, 0.25, -1, 0], [0, 0.75, -1, 0], [1, 0.5, 1, 0], [1, 0.25, 1, 0], [1, 0.75, 1, 0]];
     var defaultAnchors = ["Right", "Left"];
 
     jsPlumb.ready(function () {
@@ -55,16 +55,32 @@
             success: function (data) {
                 var modules = data['diagram_PLM_1~0'];
                 $.each(modules, function (index, data) {
-//                    console.log(data);
                     var html = "";
-                    if (data.type === "input") {
-                        html = "<div class='itemInput' id='" + data.name + "' style='left: " + data.left + "px;top: " + data.top + "px;width: " + data.width + "px;height: " + data.height + "px;text-align: center;line-height: 50px;'>" + data.name + "</div>";
-                    } else if (data.type === "output") {
-                        html = "<div class='itemOutput' id='" + data.name + "' style='left: " + data.left + "px;top: " + data.top + "px;width: " + data.width + "px;height: " + data.height + "px;text-align: center;line-height: 50px;'>" + data.name + "</div>";
-                    } else {
-                        html = "<div class='item' id='" + data.name + "' style='left: " + data.left + "px;top: " + data.top + "px;width: " + data.width + "px;height: " + data.height + "px;border: 2px solid black;background-color: #FFF68F;text-align: center;'>" + data.name + "</div>";
+                    if (data.type === "module") {
+                        html = "<div class='item' id='" + data.name + "' style='left: " + data.left + "px;top: " + data.top + "px;width: " + data.width + "px;height: " + data.height + "px;border: 2px solid black;background-color: #FFF68F;text-align: center;'>" + data.moduleName + "</div>";
+                    } else if (data.type === "parameter") {
+                        html = "<div class='itemParameter' id='" + data.name + "' style='left: " + data.left + "px;top: " + data.top + "px;width: " + data.width + "px;height: " + data.height + "px;text-align: center;line-height: 20px;'>" + data.moduleName + "</div>";
+                        html += "<div class='itemX' id='" + data.name + "' style='left: " + data.left + "px;top: " + (data.top + 20) + "px;width: " + data.width + "px;height: " + 20 + "px;text-align: center;line-height: 25px;'>X</div>";
                     }
-                    $("#items").append(html);
+                    if (html != "") {
+                        $("#items").append(html);
+                    }
+                });
+
+                $.each(modules, function (index, data) {
+                    var html = "";
+                    if (data.type === "input" || data.type === "inputSignal") {
+                        html = "<div class='itemInput' id='" + data.name + "' style='left: " + data.left + "px;top: " + data.top + "px;width: " + data.width + "px;height: " + data.height + "px;text-align: center;line-height: 30px;'>" + data.moduleName + "</div>";
+                    } else if (data.type === "output" || data.type === "outputTer") {
+                        html = "<div class='itemOutput' id='" + data.name + "' style='left: " + data.left + "px;top: " + data.top + "px;width: " + data.width + "px;height: " + data.height + "px;text-align: center;line-height: 30px;'>" + data.moduleName + "</div>";
+                    }
+                    if (html != "") {
+                        $("#items").append(html);
+                        while (!checkOverlap($("#" + data.name))) {
+                            var top = parseFloat($("#" + data.name).css("top"));
+                            $("#" + data.name).css("top", top + 35);
+                        }
+                    }
                 });
 
                 instance.doWhileSuspended(function () {
@@ -121,5 +137,53 @@
             }
         })
     });
+
+    function checkOverlap(obj) {
+        var windows = jsPlumb.getSelector('.item');
+        var windowsInput = jsPlumb.getSelector('.itemInput');
+        var windowsOutput = jsPlumb.getSelector('.itemOutput');
+
+//        for (var i = 0; i < windows.length; i++) {
+//            if (!check(obj, windows[i])) {
+//                return false;
+//            }
+//        }
+
+        for (var i = 0; i < windowsInput.length; i++) {
+            if (!check(obj, windowsInput[i]) && windowsInput[i].getAttribute('id') != $(obj).attr("id")) {
+                return false;
+            }
+        }
+
+        for (var i = 0; i < windowsOutput.length; i++) {
+            if (!check(obj, windowsOutput[i]) && windowsOutput[i].getAttribute('id') != $(obj).attr("id")) {
+                return false;
+            }
+        }
+
+        return true;
+    }
+
+    //判断2个div是否有交集,判断时以obj1作为固定的obj2作为移动的
+    function check(obj1, obj2) {
+        //以obj1作为固定的参照物，使用时注意div是否有top与left，如果没有设置的话会是空值
+        //obj2在obj1的上面 obj2.top+obj2.height<obj1.top
+        //obj2在obj1的下面 obj2.top>obj1.top+obj1.height
+        //obj2在obj1的左面 obj2.left+obj2.width<obj1.left
+        //obj2在obj1的右面 obj2.left>obj1.left+obj1.width
+        var obj1top = parseFloat($(obj1).css("top"));
+        var obj1left = parseFloat($(obj1).css("left"));
+        var obj1width = parseFloat($(obj1).width());
+        var obj1height = parseFloat($(obj1).height());
+        var obj2top = parseFloat($(obj2).css("top"));
+        var obj2left = parseFloat($(obj2).css("left"));
+        var obj2width = parseFloat($(obj2).width());
+        var obj2height = parseFloat($(obj2).height());
+        if ((obj2top + obj2height < obj1top) || (obj2top > obj1top + obj1height) || (obj2left + obj2width < obj1left) || (obj2left > obj1left + obj1width)) {
+            return true;
+        } else {
+            return false;
+        }
+    }
 </script>
 </html>
