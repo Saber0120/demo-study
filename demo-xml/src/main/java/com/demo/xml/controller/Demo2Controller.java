@@ -137,7 +137,7 @@ public class Demo2Controller {
                                 source.setName(m.getName() + "_" + inputName);
                                 source.setModuleName("DIGITAL_");// 这块不知道显示什么名称，暂时固定显示DIGITAL_
                                 int size = existInputSize(m.getSourceModule());
-                                source.setTop(top + 30 * size);
+                                source.setTop(top + 35 * size);
                                 source.setLeft(left - 400);
                                 source.setWidth(200);
                                 source.setHeight(30);
@@ -160,7 +160,7 @@ public class Demo2Controller {
                                 target.setName(targetValue);
                                 target.setModuleName(targetValue);
                                 int size = existOutputSize(m.getName(), moduleList);
-                                target.setTop(top + 30 * size);
+                                target.setTop(top + 35 * size);
                                 target.setLeft(left + width + 200);
                                 target.setWidth(200);
                                 target.setHeight(30);
@@ -172,7 +172,7 @@ public class Demo2Controller {
                                 target.setName(m.getName() + "_" + outputName);
                                 target.setModuleName("");
                                 int size = existOutputSize(m.getName(), moduleList);
-                                target.setTop(top + 30 * size);
+                                target.setTop(top + 35 * size);
                                 target.setLeft(left + width + 200);
                                 target.setWidth(200);
                                 target.setHeight(30);
