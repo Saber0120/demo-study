@@ -19,6 +19,7 @@
         <module>05_Strategy</module>
         <module>06_Adapter</module>
         <module>07_Template</module>
+        <module>10_Decorator</module>
     </modules>
 
 </project>
