@@ -14,5 +14,6 @@
         <module>demo-designPatterns</module>
         <module>demo-xml</module>
         <module>demo-shiro</module>
+        <module>demo-base</module>
     </modules>
 </project>
