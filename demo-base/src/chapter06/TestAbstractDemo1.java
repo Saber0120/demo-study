@@ -27,15 +27,22 @@ abstract class Person6 {
 
     String occupation;
 
+    public Person6(String name, int age, String occupation) {
+        this.name = name;
+        this.age = age;
+        this.occupation = occupation;
+    }
+
     abstract String talk();
 }
 
 class Student6 extends Person6 {
 
     public Student6(String name, int age, String occupation) {
-        this.name = name;
-        this.age = age;
-        this.occupation = occupation;
+//        this.name = name;
+//        this.age = age;
+//        this.occupation = occupation;
+        super(name, age, occupation);   //  抽象类的构造方法，子类也必须调用
     }
 
     @Override
@@ -47,9 +54,10 @@ class Student6 extends Person6 {
 class Worker6 extends Person6 {
 
     public Worker6(String name, int age, String occupation) {
-        this.name = name;
-        this.age = age;
-        this.occupation = occupation;
+//        this.name = name;
+//        this.age = age;
+//        this.occupation = occupation;
+        super(name, age, occupation);   //  抽象类的构造方法，子类也必须调用
     }
 
     @Override
