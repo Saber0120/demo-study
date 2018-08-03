@@ -15,5 +15,6 @@
         <module>demo-xml</module>
         <module>demo-shiro</module>
         <module>demo-base</module>
+        <module>demo-threadpool</module>
     </modules>
 </project>
