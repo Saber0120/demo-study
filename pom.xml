@@ -16,5 +16,6 @@
         <module>demo-shiro</module>
         <module>demo-base</module>
         <module>demo-threadpool</module>
+        <module>demo-swagger</module>
     </modules>
 </project>
