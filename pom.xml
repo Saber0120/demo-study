@@ -17,5 +17,6 @@
         <module>demo-base</module>
         <module>demo-threadpool</module>
         <module>demo-swagger</module>
+        <module>demo-aspect</module>
     </modules>
 </project>
