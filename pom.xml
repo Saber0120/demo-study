@@ -18,5 +18,9 @@
         <module>demo-threadpool</module>
         <module>demo-swagger</module>
         <module>demo-aspect</module>
+        <module>demo-cache</module>
+        <module>demo-mq</module>
+        <module>demo-boot</module>
+        <module>demo-jvm</module>
     </modules>
 </project>
