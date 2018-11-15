@@ -22,5 +22,8 @@
         <module>demo-mq</module>
         <module>demo-boot</module>
         <module>demo-jvm</module>
+        <module>demo-cloud</module>
+        <module>demo-redis</module>
+        <module>demo-structure</module>
     </modules>
 </project>
