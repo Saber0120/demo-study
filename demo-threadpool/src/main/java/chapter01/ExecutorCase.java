@@ -20,7 +20,7 @@ public class ExecutorCase {
     private static Executor executor = Executors.newFixedThreadPool(10);
 
     public static void main(String[] args) {
-        for (int i = 0; i < 20; i++) {
+        for (int i = 0; i < 30; i++) {
             //  通过executor.execute()方法提交20个任务，每个任务打印当前线程名
             executor.execute(new Task());
         }
@@ -31,6 +31,11 @@ public class ExecutorCase {
         @Override
         public void run() {
             System.out.println(Thread.currentThread().getName());
+            try {
+                Thread.sleep(1000);
+            } catch (InterruptedException e) {
+                e.printStackTrace();
+            }
         }
     }
 }

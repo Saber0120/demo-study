@@ -26,7 +26,7 @@ public class ThreadPoolExecutorDemo {
     //1、corePoolSize：线程池的核心线程数，当提交一个任务时，线程池就会创建一个新线程，直到线程数到达corePoolSize；
     //  如果当前线程数为corePoolSize，继续提交的任务被保存到阻塞队列中，等待被执行；
     //  如果执行了线程池的prestartAllCoreThreads()，线程池会提前创建并启动所有核心线程
-    //2、
+    //2、maximumPoolSize：线程池中允许的最大线程数。如果当前阻塞队列满了，且继续提交任务，则创建新的
 
 
     public static void main(String[] args) {
