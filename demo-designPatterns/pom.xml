@@ -20,6 +20,8 @@
         <module>06_Adapter</module>
         <module>07_Template</module>
         <module>10_Decorator</module>
+        <module>11_Builder</module>
+        <module>12_Prototype</module>
     </modules>
 
 </project>
