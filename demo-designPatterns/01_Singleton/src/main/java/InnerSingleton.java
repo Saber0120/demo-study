@@ -19,6 +19,6 @@ public class InnerSingleton {
     }
 
     private static class InnerSingletonInstance {
-        static InnerSingleton innerSingleton = new InnerSingleton();
+        private static InnerSingleton innerSingleton = new InnerSingleton();
     }
 }

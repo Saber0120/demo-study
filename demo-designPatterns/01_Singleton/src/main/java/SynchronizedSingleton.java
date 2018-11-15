@@ -3,7 +3,7 @@
  */
 public class SynchronizedSingleton {
 
-    private static SynchronizedSingleton singleton;
+    private volatile static SynchronizedSingleton singleton;
 
     private SynchronizedSingleton() {
 
