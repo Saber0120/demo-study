@@ -31,7 +31,8 @@ public class WeakHashMapDemo {
 //            // a对应内存上的强引用已经全部被移除，只剩弱引用，弱引用在垃圾回收后被移除
 //        }
 
-        test();
+        test2();
+//        testCase4();
     }
 
     public static void test() {
@@ -75,6 +76,66 @@ public class WeakHashMapDemo {
         coupan1 = null;
 //        System.gc();
         System.out.println("8.map.size():" + map.size());
+    }
+
+    public static void test2() {
+        Map<Coupan, List<WeakReference<User>>> map = new WeakHashMap();
+        List<Coupan> coupanList = new ArrayList<>();
+        Coupan coupan1 = new Coupan("优惠券1");
+        Coupan coupan2 = new Coupan("优惠券2");
+        coupanList.add(coupan1);
+        coupanList.add(coupan2);
+        List<User> userList = new ArrayList<>();
+        User user1 = new User("用户1");
+        User user2 = new User("用户2");
+        User user3 = new User("用户3");
+        User user4 = new User("用户4");
+        User user5 = new User("用户5");
+        userList.add(user1);
+        userList.add(user2);
+        userList.add(user3);
+        userList.add(user4);
+        userList.add(user5);
+        List<WeakReference<User>> weakRef1 = new ArrayList<>();
+        weakRef1.add(new WeakReference<User>(user1));
+        weakRef1.add(new WeakReference<User>(user2));
+        weakRef1.add(new WeakReference<User>(user3));
+        List<WeakReference<User>> weakRef2 = new ArrayList<>();
+        weakRef2.add(new WeakReference<User>(user1));
+        weakRef2.add(new WeakReference<User>(user4));
+        weakRef2.add(new WeakReference<User>(user5));
+        map.put(coupan1, weakRef1);
+        map.put(coupan2, weakRef1);
+
+        System.out.println("1.map.get(coupan1).size()---" + map.get(coupan1).size());
+        System.out.println("2.map.get(coupan2).size()---" + map.get(coupan2).size());
+        System.out.println("user1 remove");
+        userList.remove(user1);
+        user1 = null;
+        System.gc();
+
+        System.out.println("3.map.get(coupan1).size()---" + map.get(coupan1).size());
+        System.out.println("4.map.get(coupan2).size()---" + map.get(coupan2).size());
+        for (WeakReference<User> userWeakReference : map.get(coupan1)) {
+            System.out.println(userWeakReference.get());
+        }
+
+        for (WeakReference<User> userWeakReference : map.get(coupan1)) {
+            System.out.println(userWeakReference.get());
+        }
+    }
+
+    public static void testCase4() {
+        User demo1 = new User("hello world");
+        WeakReference<User> sr = new WeakReference<User>(demo1);
+
+        List<WeakReference> lists = new ArrayList<>();
+        lists.add(sr);
+        demo1 = null;
+
+        System.gc();
+        System.out.println(lists.size());
+        System.out.println(sr.get());
     }
 }
 
