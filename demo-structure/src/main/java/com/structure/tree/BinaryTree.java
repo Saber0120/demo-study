@@ -1,5 +1,7 @@
 package com.structure.tree;
 
+import java.util.Stack;
+
 /**
  * 二叉树的链式存储
  * https://blog.csdn.net/wuwenxiang91322/article/details/12231657
@@ -34,7 +36,7 @@ public class BinaryTree {
         root.leftChild.leftChild = newNodeD;
         root.leftChild.rightChild = newNodeE;
         root.rightChild.rightChild = newNodeF;
-        root.leftChild.rightChild.rightChild = newNodeG;
+        // root.leftChild.rightChild.rightChild = newNodeG;
     }
 
     public boolean isEmpty() {
@@ -88,7 +90,7 @@ public class BinaryTree {
         if (subTree == null) {
             return null;
         }
-        if (element.equals(subTree.leftChild) || element.equals(subTree.rightChild)) {
+        if ((subTree.leftChild != null && element.data.equals(subTree.leftChild.data)) || (subTree.rightChild != null && element.data.equals(subTree.rightChild.data))) {
             return subTree;
         }
         TreeNode p;
@@ -172,6 +174,70 @@ public class BinaryTree {
         System.out.println("key : " + element.key + " , data : " + element.data);
     }
 
+    /**
+     * 非递归的前序遍历
+     * @param subTree
+     */
+    public void noRecPreOrder(TreeNode subTree) {
+        Stack<TreeNode> stack = new Stack<>();
+        TreeNode node = subTree;
+        while (node != null || stack.size() > 0) {
+            while (node != null) {
+                visited(node);
+                stack.push(node);
+                node = node.leftChild;
+            }
+            if (stack.size() > 0) {
+                node = stack.pop();
+                node = node.rightChild;
+            }
+        }
+    }
+
+    /**
+     * 非递归的中序遍历
+     * @param subTree
+     */
+    public void noRecInOrder(TreeNode subTree) {
+        Stack<TreeNode> stack = new Stack<>();
+        TreeNode node = subTree;
+        while (node != null || stack.size() > 0) {
+            while (node != null) {
+                stack.push(node);
+                node = node.leftChild;
+            }
+            if (stack.size() > 0) {
+                node = stack.pop();
+                visited(node);
+                node = node.rightChild;
+            }
+        }
+    }
+
+    /**
+     * 非递归的后序遍历
+     * @param subTree
+     */
+    public void noRecPostOrder(TreeNode subTree) {
+        Stack<TreeNode> stack = new Stack<>();
+        TreeNode node = subTree;
+        while (subTree != null) {
+            for (; subTree.leftChild != null; subTree = subTree.leftChild) {
+                stack.push(subTree);
+            }
+            while (subTree != null && (subTree.rightChild == null || subTree.rightChild.data.equals(node.data))) {
+                visited(subTree);
+                node = subTree;
+                if (stack.isEmpty()) {
+                    return;
+                }
+                subTree = stack.pop();
+            }
+            stack.push(subTree);
+            subTree = subTree.rightChild;
+        }
+    }
+
     class TreeNode {
         private int key = 0;//层级
         private String data = null;//数据
@@ -204,7 +270,17 @@ public class BinaryTree {
         System.out.println("后序遍历结果 ：");
         bt.postOrder(bt.root);
 
-        System.out.println("traverse : ");
-        bt.traverse(bt.root);
+        System.out.println("非递归的前序遍历 ： ");
+        bt.noRecPreOrder(bt.root);
+
+        System.out.println("非递归的中序遍历 ： ");
+        bt.noRecInOrder(bt.root);
+
+        System.out.println("非递归的后序遍历 ： ");
+        bt.noRecPostOrder(bt.root);
+
+        TreeNode treeNode = new BinaryTree().new TreeNode(5, "E");
+        System.out.println("parent: ");
+        bt.visited(bt.parent(treeNode));
     }
 }
