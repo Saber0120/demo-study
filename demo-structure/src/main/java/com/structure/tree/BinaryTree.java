@@ -222,17 +222,20 @@ public class BinaryTree {
         Stack<TreeNode> stack = new Stack<>();
         TreeNode node = subTree;
         while (subTree != null) {
+            // 左子树入栈
             for (; subTree.leftChild != null; subTree = subTree.leftChild) {
                 stack.push(subTree);
             }
-            while (subTree != null && (subTree.rightChild == null || subTree.rightChild.data.equals(node.data))) {
+            while (subTree != null && (subTree.rightChild == null || subTree.rightChild == node)) {
                 visited(subTree);
+                // 记录上一个输出点
                 node = subTree;
                 if (stack.isEmpty()) {
                     return;
                 }
                 subTree = stack.pop();
             }
+            // 处理右子树
             stack.push(subTree);
             subTree = subTree.rightChild;
         }
