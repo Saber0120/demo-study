@@ -9,5 +9,6 @@ public class TestJava2_3 {
     public static void main(String[] args) {
         int num = 2;
         System.out.println("我有 " + num + " 本书！");
+        System.out.println("我有 " + num + " 本书！");
     }
 }

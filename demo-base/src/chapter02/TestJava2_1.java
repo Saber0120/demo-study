@@ -11,5 +11,6 @@ public class TestJava2_1 {
         //  输出变量，用“+”连接
         System.out.println("这是数字 " + num);
         System.out.println("我有 " + num + " 本书！");
+        System.out.println("我有 " + num + " 本书！");
     }
 }

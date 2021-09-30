@@ -10,6 +10,7 @@ public class TestJava2_2 {
         for (x = 1; x < 3; x++) {
             System.out.print(x + " * " + x);
             System.out.println(" = " + x * x);
+            System.out.println(" = " + x * x);
         }
     }
 }
